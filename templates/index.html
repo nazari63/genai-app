@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GenAI App</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>GenAI LLM Application</h1>
+      <textarea id="prompt" placeholder="Enter your prompt"></textarea>
+      <button id="generate-btn">Generate</button>
+      <div id="response"></div>
+    </div>
+    <script>
+      const generateButton = document.getElementById("generate-btn");
+      const promptInput = document.getElementById("prompt");
+      const responseDiv = document.getElementById("response");
+
+      generateButton.addEventListener("click", async () => {
+        const prompt = promptInput.value.trim();
+        if (!prompt) {
+          responseDiv.innerText = "Please enter a prompt.";
+          return;
+        }
+        responseDiv.innerText = "Generating...";
+        try {
+          const response = await fetch("/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt }),
+          });
+          const data = await response.json();
+          responseDiv.innerText = data.response || "Error: " + data.error;
+        } catch {
+          responseDiv.innerText = "An error occurred while generating.";
+        }
+      });
+    </script>
+  </body>
+</html>
