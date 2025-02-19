@@ -14,3 +14,4 @@ This is a simple web application demonstrating the capabilities of a pre-trained
    git clone https://github.com/your-username/your-repo-name.git
    cd your-repo-name
    ```
+This project is a demonstration of blockchain technology and smart contract integration.
